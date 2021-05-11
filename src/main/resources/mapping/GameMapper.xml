@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fiercepigeon.dao.GameDao">
+
+    <resultMap id="GameResultMap" type="com.example.fiercepigeon.model.entity.Game"/>
+
+    <select id="listUndone" resultMap="GameResultMap" parameterType="java.lang.String">
+        SELECT * FROM game_info
+        WHERE done = 0
+        ORDER BY ${order} ASC
+    </select>
+
+    <select id="findByParam" resultMap="GameResultMap" parameterType="com.example.fiercepigeon.model.entity.Game">
+        SELECT * FROM game_info
+        <where>
+            <if test="gym != null">
+                AND gym = #{gym}
+            </if>
+            <if test="siteNo != null">
+                AND site_no = #{siteNo}
+            </if>
+            <if test="done != null">
+                AND done = #{done}
+            </if>
+            <if test="creator != null">
+                AND creator = #{creator}
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+</mapper>

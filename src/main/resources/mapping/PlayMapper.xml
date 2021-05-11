@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fiercepigeon.dao.PlayDao">
+
+    <resultMap id="PlayResultMap" type="com.example.fiercepigeon.model.entity.Play"/>
+
+    <select id="findByParam" resultMap="PlayResultMap" parameterType="com.example.fiercepigeon.model.entity.Play">
+        SELECT * FROM play_info
+        <where>
+            <if test="openId != null">
+                AND open_id = #{openId}
+            </if>
+            <if test="gameId != null">
+                AND game_id = #{gameId}
+            </if>
+            <if test="deleted != null">
+                AND deleted = #{deleted}
+            </if>
+        </where>
+        ORDER BY update_time DESC
+    </select>
+
+    <select id="countPlayed" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM play_info
+        WHERE open_id = #{openId} AND deleted = #{deleted}
+    </select>
+
+</mapper>

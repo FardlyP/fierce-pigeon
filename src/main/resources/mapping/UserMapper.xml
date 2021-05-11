@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fiercepigeon.dao.UserDao">
+
+    <resultMap id="UserResultMap" type="com.example.fiercepigeon.model.entity.User"/>
+
+    <select id="findByParam" resultMap="UserResultMap" parameterType="com.example.fiercepigeon.model.entity.User">
+        SELECT * FROM user_info
+        <where>
+            <if test="openId != null">
+                AND open_id = #{openId}
+            </if>
+            <if test="nickname != null">
+                AND nickname = #{nickname}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>
