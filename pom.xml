@@ -131,12 +131,29 @@
                     <include>**/*.yml</include>
                 </includes>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>server.jks</exclude>
+<!--                    证书不能被filter修改占位符-->
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>server.jks</include>
+                </includes>
             </resource>
         </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <!--修改版本-->
+                <version>3.1.0</version>
             </plugin>
         </plugins>
     </build>
